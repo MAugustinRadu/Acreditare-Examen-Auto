@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Optional;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(false)
@@ -36,6 +38,37 @@ public class IntrebareRepositoryTests {
     @Test
     public void testListAll() {
         Iterable<Intrebare> intrebari = repo.findAll();
-        Assertions.assertEquals(0,(intrebari).s;
+        for (Intrebare intrebare: intrebari) {
+            System.out.println(intrebare);
+        }
+    }
+
+    @Test
+    public void testUpdate(){
+        Integer intrebareId = 10;
+        Optional<Intrebare> intrebareOptionala = repo.findById(intrebareId);
+        Intrebare intrebare = intrebareOptionala.get();
+        intrebare.setCategoria("testing");
+        repo.save(intrebare);
+
+        Intrebare intrebareUpdated = repo.findById(intrebareId).get();
+        Assertions.assertTrue((intrebareUpdated.getCategoria()).equals("testing"));
+    }
+
+    @Test
+    public void testGet(){
+        Integer intrebareid = 10;
+        Optional<Intrebare> intrebareOptional = repo.findById(intrebareid);
+        Assertions.assertTrue((intrebareOptional).isPresent());
+        System.out.println(intrebareOptional.get());
+    }
+
+    @Test
+    public void testDelete(){
+        Integer intrebareid = 10;
+        repo.deleteById(intrebareid);
+
+        Optional<Intrebare> intrebareOptional = repo.findById(intrebareid);
+        Assertions.assertTrue((intrebareOptional).isEmpty());
     }
 }

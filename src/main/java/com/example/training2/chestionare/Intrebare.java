@@ -9,36 +9,21 @@ public class Intrebare {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false, unique = true, length = 255)
+    @Column(nullable = false, unique = true)
     private String intrebare;
     @Column(length = 40,nullable = false)
     private String categoria;
-    @Column(length = 255,nullable = false)
+    @Column(nullable = false)
     private String optiuneaa;
-    @Column(length = 255,nullable = false)
+    @Column(nullable = false)
     private String optiuneab;
-    @Column(length = 255,nullable = false)
+    @Column(nullable = false)
     private String optiuneac;
-    @Column
+
     private boolean optiuneaabool;
-    @Column
+
     private boolean optiuneabbool;
-    @Column
     private boolean optiuneacbool;
-
-    public Intrebare(Integer id, String intrebare, String categoria, String optiuneaa, String optiuneab, String optiuneac, boolean optiuneaabool, boolean optiuneabbool, boolean optiuneacbool) {
-        this.setId(id);
-        this.setIntrebare(intrebare);
-        this.setCategoria(categoria);
-        this.setOptiuneaa(optiuneaa);
-        this.setOptiuneab(optiuneab);
-        this.setOptiuneac(optiuneac);
-        this.setOptiuneaabool(optiuneaabool);
-        this.setOptiuneabbool(optiuneabbool);
-        this.setOptiuneacbool(optiuneacbool);
-    }
-
-    public Intrebare() {}
 
     public Integer getId() {
         return id;

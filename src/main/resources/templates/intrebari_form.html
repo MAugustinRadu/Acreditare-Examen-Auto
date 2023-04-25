@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new chestionar</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"   />
+</head>
+<body>
+<div class="container-fluid">
+    <div class="text-center"><h2> Add new chestionar</h2></div>
+
+    <form th:action="@{/chestionare/save}" method="post" th:object="${intrebare}" style="max-width: 2000px; margin: 0 auto;">
+    <div class="border border-secondary rounded p-3">
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Textul intrebarii</label>
+            <div class="col-sm-8">
+                <input type="text" th:field="*{intrebare}" class="form-control" required minlength="7">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Categoria Intrebarii</label>
+            <div class="col-sm-8">
+                <input type="text" th:field="*{categoria}" class="form-control" required minlength="7">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Textul Variantei 1</label>
+            <div class="col-sm-8">
+                <input type="text" th:field="*{optiuneaa}" class="form-control" required minlength="8">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Textul Variantei 2</label>
+            <div class="col-sm-8">
+                <input type="text" th:field="*{optiuneab}" class="form-control" required minlength="8">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Textul Variantei 3</label>
+            <div class="col-sm-8">
+                <input type="text" th:field="*{optiuneac}" class="form-control" required minlength="8">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Adevarat sau Fals Varianta 1:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" th:field="*{optiuneaabool}" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Adevarat sau Fals Varianta 2:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" th:field="*{optiuneabbool}" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Adevarat sau Fals Varianta 3:</label>
+            <div class="col-sm-8">
+                <input type="checkbox" th:field="*{optiuneacbool}" />
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn-primary m-2">Save</button>
+            <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Cancel</button>
+        </div>
+    </div>
+
+    </form>
+</div>
+<script type="text/javascript">
+    function cancelForm(){
+        window.location = "[[@{/chestionare}]]"
+    }
+</script>
+</body>
+</html>
