@@ -3,10 +3,12 @@ package com.example.training2.chestionare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 
@@ -28,10 +30,34 @@ public class IntrebareController {
     }
 
     @PostMapping("/chestionare/save")
-    public String saveIntrebare(Intrebare intrebare) {
+    public RedirectView saveIntrebare(@RequestBody Intrebare intrebare) {
         service.save(intrebare);
 
-        return "redirect:/chestionare";
+        return new RedirectView("/chestionare");
+    }
+
+    @GetMapping("/intrebarisimulator")
+    public String intrebariSimulator(Model model) {
+        List<Intrebare> listIntrebari = service.listAll();
+        Random random = new Random();
+        List<Intrebare> listIntrebariSimulator = new ArrayList<>();
+        for (int i = 0; i < 26; i++) {
+            Boolean duplicat = false;
+            int generatorRandom = random.nextInt(listIntrebari.size());
+            for (int j = 0; j < listIntrebariSimulator.size(); j++) {
+                if(listIntrebari.get(i).equals(listIntrebariSimulator.get(j)))
+                    duplicat=true;
+            }
+            if (!duplicat) {
+                listIntrebariSimulator.add(listIntrebari.get(i));
+            }
+        }
+        model.addAttribute("listIntrebari",listIntrebariSimulator);
+        return "intrebarisimulator";
+    }
+    @GetMapping("/simulatorExamen")
+    public String simulatorExamen(Model model) {
+        return "simulatorExamen";
     }
 
 }

@@ -14,6 +14,7 @@ public class IntrebareService {
     }
 
     public void save(Intrebare intrebare) {
-        repo.save(intrebare);
+        Intrebare intrebareDeSalvat = intrebare;
+        repo.save(intrebareDeSalvat);
     }
 }

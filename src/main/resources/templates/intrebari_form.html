@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="text-center"><h2> Add new chestionar</h2></div>
 
-    <form th:action="@{/chestionare/save}" method="post" th:object="${intrebare}" style="max-width: 2000px; margin: 0 auto;">
+    <form id=form_chestionare th:action="@{/chestionare/save}" method="post" name="form_chestionare" th:object="${intrebare}" style="max-width: 2000px; margin: 0 auto;">
     <div class="border border-secondary rounded p-3">
         <div class="form-group row">
             <label class="col-sm-4 col-form-label">Textul intrebarii</label>
@@ -70,6 +70,37 @@
 <script type="text/javascript">
     function cancelForm(){
         window.location = "[[@{/chestionare}]]"
+    }
+    const sampleForm = document.getElementById("form_chestionare");
+    sampleForm.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+        let form = e.currentTarget;
+        let url = form.action;
+
+        try {
+            let formData = new FormData(form);
+            let responseData = await postFormFieldsAsJson({ url, formData });
+            let { serverDataResponse } = responseData;
+            console.log(serverDataResponse);
+        } catch (error) {
+            console.error(error);
+        }
+    });
+    async function postFormFieldsAsJson({ url, formData }) {
+        let formDataObject = Object.fromEntries(formData.entries());
+        let formDataJsonString = JSON.stringify(formDataObject);
+        let fetchOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: formDataJsonString,
+        };
+        let res = fetch(url, fetchOptions);
+        location.href = '/chestionare';
+        return res.json();
     }
 </script>
 </body>
