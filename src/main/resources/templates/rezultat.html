@@ -7,13 +7,16 @@
 </head>
 <body>
 <div class="container-fluid text-center">
-  <h2> Scorul tau a fost</h2>
+  <h2>Scorul tau a fost</h2>
   <div class="m-2">
-    <span th:text="${scor}"> </span>
+    <span class="display-4" th:text="${scor}"></span>
   </div>
   <div class="m-2">
-    <a class="h3 m-2" th:href="@{http://localhost:8080}">Home</a>
+    <a class="btn btn-primary btn-lg" th:href="@{http://localhost:8080}">
+      <i class="fas fa-home"></i> Home
+    </a>
   </div>
 </div>
+<script src="https://kit.fontawesome.com/78b4b9bef4.js" crossorigin="anonymous"></script>
 </body>
 </html>

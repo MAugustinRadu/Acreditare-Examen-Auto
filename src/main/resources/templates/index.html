@@ -2,21 +2,49 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Testing</title>
+    <title>Simulator Examen Auto</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"   />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container-fluid {
+            margin-top: 50px;
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        .m-2 {
+            margin: 10px;
+        }
+        .m-3 {
+            margin: 15px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid text-center">
-    <h1> Testing, atention please!</h1>
-    <h2> Some more testing, please wait</h2>
+    <h1>Simulator Examen Auto</h1>
     <div class="m-2">
-        <a class="h3 m-2" th:href="@{/chestionare}">Chestionare</a>
+        <a class="h3" th:href="@{/chestionare}">Chestionare</a>
     </div>
     <div class="m-2">
-        <a class="h3 m-3" th:href="@{/intrebarisimulator}">Intrebari Simulator Examen</a>
+        <a class="h3" th:href="@{/intrebarisimulator}">Intrebari Simulator Examen</a>
     </div>
     <div class="m-2">
-        <a class="h3 m-3" th:href="@{/simulatorExamen}">Simulator Examen</a>
+        <a class="h3" th:href="@{/simulatorExamen}">Simulator Examen</a>
     </div>
 </div>
 </body>

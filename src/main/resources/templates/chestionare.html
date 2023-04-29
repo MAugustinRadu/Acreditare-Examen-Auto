@@ -3,54 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Chestionare</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"   />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 <body>
-<div class="container-fluid text-center">
-    <h2> Manage Chestionare</h2>
-    <div class="m-2">
-        <a class="h3 m-2" th:href="@{/chestionare/new}">Add New Chestionare</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" th:href="@{http://localhost:8080}">Simulator Examen</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/chestionare/new}">Add New Chestionare</a>
+            </li>
+        </ul>
     </div>
-    <div class="m-2">
-        <a class="h3 m-2" th:href="@{http://localhost:8080}">Home</a>
-    </div>
-    <div>
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Text Intrebare</th>
-                <th>Text Optiunea 1</th>
-                <th>Text Optiunea 2</th>
-                <th>Text Optiunea 3</th>
-                <th>Categoria</th>
-                <th>Adevarat sau Fals 1</th>
-                <th>Adevarat sau Fals 2</th>
-                <th>Adevarat sau Fals 3</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <th:block th:each="intrebare : ${listIntrebari}">
+</nav>
+<div class="container-fluid mt-3">
+    <h2 class="text-center mb-4">Manage Chestionare</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
                 <tr>
-                    <td>[[${intrebare.id}]]</td>
-                    <td>[[${intrebare.intrebare}]]</td>
-                    <td>[[${intrebare.optiuneaa}]]</td>
-                    <td>[[${intrebare.optiuneab}]]</td>
-                    <td>[[${intrebare.optiuneac}]]</td>
-                    <td>[[${intrebare.categoria}]]</td>
-                    <td>[[${intrebare.optiuneaabool}]]</td>
-                    <td>[[${intrebare.optiuneabbool}]]</td>
-                    <td>[[${intrebare.optiuneacbool}]]</td>
-                    <td>
-                        <a class="h4 mr-3" th:href="@{'/chestionare/edit/' + ${intrebare.id}}">Edit</a>
-                        <a class="h4" th:href="@{'/chestionare/delete/' + ${intrebare.id}}">Delete</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Text Intrebare</th>
+                    <th>Text Optiunea 1</th>
+                    <th>Text Optiunea 2</th>
+                    <th>Text Optiunea 3</th>
+                    <th>Categoria</th>
+                    <th>Adevarat sau Fals 1</th>
+                    <th>Adevarat sau Fals 2</th>
+                    <th>Adevarat sau Fals 3</th>
+                    <th></th>
                 </tr>
-            </th:block>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <th:block th:each="intrebare : ${listIntrebari}">
+                    <tr>
+                        <td>[[${intrebare.id}]]</td>
+                        <td>[[${intrebare.intrebare}]]</td>
+                        <td>[[${intrebare.optiuneaa}]]</td>
+                        <td>[[${intrebare.optiuneab}]]</td>
+                        <td>[[${intrebare.optiuneac}]]</td>
+                        <td>[[${intrebare.categoria}]]</td>
+                        <td>[[${intrebare.optiuneaabool}]]</td>
+                        <td>[[${intrebare.optiuneabbool}]]</td>
+                        <td>[[${intrebare.optiuneacbool}]]</td>
+                        <td>
+                            <a class="btn btn-primary mr-3" th:href="@{'/chestionare/edit/' + ${intrebare.id}}">Edit</a>
+                            <a class="btn btn-danger" th:href="@{'/chestionare/delete/' + ${intrebare.id}}">Delete</a>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+<script src="@{/webjars/jquery/jquery.min.js}" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 </body>
 </html>

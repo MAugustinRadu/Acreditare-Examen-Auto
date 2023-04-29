@@ -1,11 +1,8 @@
 package com.example.training2.chestionare;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -45,13 +42,13 @@ public class IntrebareController {
     @GetMapping("/intrebarisimulator")
     public String intrebariSimulator(Model model) {
         List<Intrebare> listIntrebari = service.listAll();
-        Random random = new Random();
+        Random random = new Random(16548923);
         List<Intrebare> listIntrebariSimulator = new ArrayList<>();
         for (int i = 0; i < 26; i++) {
             Boolean duplicat = false;
             int generatorRandom = random.nextInt(listIntrebari.size());
             for (int j = 0; j < listIntrebariSimulator.size(); j++) {
-                if(listIntrebari.get(i).equals(listIntrebariSimulator.get(j)))
+                if(listIntrebari.get(generatorRandom).equals(listIntrebariSimulator.get(j)))
                     duplicat=true;
             }
             if (!duplicat) {
@@ -64,16 +61,22 @@ public class IntrebareController {
     @GetMapping("/simulatorExamen")
     public String simulatorExamen(Model model) {
         List<Intrebare> listIntrebari = service.listAll();
-        Random random = new Random();
-        for (int i = 0; i < 26; i++) {
-            Boolean duplicat = false;
-            int generatorRandom = random.nextInt(listIntrebari.size());
-            for (int j = 0; j < listaIntrebariExamen.size(); j++) {
-                if(listIntrebari.get(i).equals(listaIntrebariExamen.get(j)))
-                    duplicat=true;
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        Random randomGenerator = new Random();
+        while (numbers.size() <= 26) {
+
+            int random = randomGenerator.nextInt(listIntrebari.size());
+            if (!numbers.contains(random)) {
+                numbers.add(random);
             }
-            if (!duplicat) {
-                listaIntrebariExamen.add(listIntrebari.get(i));
+        }
+        for (int i = 0; i < 26; i++) {
+            if (listaIntrebariExamen.size() > 26) {
+                listaIntrebariExamen.remove(i);
+                listaIntrebariExamen.add(listIntrebari.get(numbers.get(i)));
+            }
+            else {
+                listaIntrebariExamen.add(listIntrebari.get(numbers.get(i)));
             }
         }
         listaIntrebariExamenOriginale = listaIntrebariExamen;
@@ -150,5 +153,6 @@ public class IntrebareController {
         scor = 0;
         index = 0;
         return "rezultat";
+
     }
     }
