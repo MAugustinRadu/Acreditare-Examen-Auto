@@ -12,30 +12,23 @@
     <a class="h3 m-2" th:href="@{http://localhost:8080}">Home</a>
   </div>
   <div class="h5 m-2">
-    <span id="intrebarea">Textul Intrebarii este</span>
+    <span id="intrebarea">Scorul dumneavoastra de pana acuma este <span th:text="${scor}"></span></span>
     <div></div>
-<!--    <form id="chestionar">-->
-<!--      <label for="varianta1"><span id="optiuneaa" > Varianta 1 este</span></label>-->
-<!--      <input type="checkbox" id="varianta1" name="myBooleanInput1" value="true">-->
-<!--      <label for="varianta2"><span id="optiuneab" > Varianta 2 este</span></label>-->
-<!--      <input type="checkbox" id="varianta2" name="myBooleanInput2" value="true">-->
-<!--      <label for="varianta3"><span id="optiuneac" > Varianta 3 este</span></label>-->
-<!--      <input type="checkbox" id="varianta3" name="myBooleanInput3" value="true">-->
-<!--      <button type="submit" id="next" onclick="submitForm()">Urmatoarea Intrebare</button>-->
-<!--    </form>-->
     <form id="myForm" method="post" th:action="@{/submitForm}">
       <h4 th:text="${listIntrebari[index].intrebare}"></h4>
-      <input type="checkbox" name="myBooleanInput1" th:checked="${listIntrebari[index].optiuneaabool}"/>
+      <input type="checkbox" name="myBooleanInput1"/>
       <span th:text="${listIntrebari[index].optiuneaa}"></span>
       <br/>
-      <input type="checkbox" name="myBooleanInput2" th:checked="${listIntrebari[index].optiuneabbool}"/>
+      <input type="checkbox" name="myBooleanInput2"/>
       <span th:text="${listIntrebari[index].optiuneab}"></span>
       <br/>
-      <input type="checkbox" name="myBooleanInput3" th:checked="${listIntrebari[index].optiuneacbool}"/>
+      <input type="checkbox" name="myBooleanInput3"/>
       <span th:text="${listIntrebari[index].optiuneac}"></span>
       <br/><br/>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <div></div>
+    <span>Sunteti la intrebarea <span th:text="${index}"><span> din 26</span></span></span>
 </div>
 </div>
 <script type="text/javascript">

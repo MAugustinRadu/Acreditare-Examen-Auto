@@ -45,7 +45,6 @@ public class IntrebareController {
     @GetMapping("/intrebarisimulator")
     public String intrebariSimulator(Model model) {
         List<Intrebare> listIntrebari = service.listAll();
-        listaIntrebariExamen.clear();
         Random random = new Random();
         List<Intrebare> listIntrebariSimulator = new ArrayList<>();
         for (int i = 0; i < 26; i++) {
@@ -65,7 +64,6 @@ public class IntrebareController {
     @GetMapping("/simulatorExamen")
     public String simulatorExamen(Model model) {
         List<Intrebare> listIntrebari = service.listAll();
-        listaIntrebariExamen.clear();
         Random random = new Random();
         for (int i = 0; i < 26; i++) {
             Boolean duplicat = false;
@@ -82,6 +80,7 @@ public class IntrebareController {
         model.addAttribute("listIntrebari",listaIntrebariExamen);
         index++;
         model.addAttribute("index",index);
+        model.addAttribute("scor",scor);
         return "simulatorExamen";
     }
 
@@ -103,26 +102,34 @@ public class IntrebareController {
                            @RequestParam(name = "myBooleanInput3", required = false) Boolean varianta3 ) {
         // Your code here to process the three boolean inputs
         Intrebare intrebareSubmited = listaIntrebariExamen.get(index);
-        Intrebare intrebareOriginala =listaIntrebariExamenOriginale.get(index);
-
-        Boolean var1 = varianta1 != null ? varianta1.booleanValue() : false;
-        Boolean var2 = varianta2 != null ? varianta2.booleanValue() : false;
-        Boolean var3 = varianta3 != null ? varianta3.booleanValue() : false;
-        if (var1) {
+        List<Intrebare> intrebariTotale = service.listAll();
+        Intrebare intrebareOriginala = new Intrebare();
+        for (int i = 0; i < intrebariTotale.size(); i++) {
+            if (intrebariTotale.get(i).getId().equals(intrebareSubmited.getId())) {
+                intrebareOriginala =intrebariTotale.get(i);
+            }
+        }
+        if(varianta1 == null)
+            varianta1 = false;
+        if(varianta2 == null)
+            varianta2 = false;
+        if(varianta3 == null)
+            varianta3 = false;
+        if (varianta1) {
             // checkbox was checked
             intrebareSubmited.setOptiuneaabool(true);
         } else {
             // checkbox was not checked
             intrebareSubmited.setOptiuneaabool(false);
         }
-        if (var2) {
+        if (varianta2) {
             // checkbox was checked
             intrebareSubmited.setOptiuneabbool(true);
         } else {
             // checkbox was not checked
             intrebareSubmited.setOptiuneabbool(false);
         }
-        if (var3) {
+        if (varianta3) {
             // checkbox was checked
             intrebareSubmited.setOptiuneacbool(true);
         } else {
@@ -140,6 +147,8 @@ public class IntrebareController {
     @GetMapping("/rezultat")
     public String showRezultat(Model model) {
         model.addAttribute("scor",scor);
+        scor = 0;
+        index = 0;
         return "rezultat";
     }
     }

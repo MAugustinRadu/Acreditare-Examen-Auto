@@ -19,4 +19,9 @@ public class IntrebareService {
         repo.save(intrebareDeSalvat);
     }
 
+    public int find(Intrebare intrebare) {
+        List<Intrebare> intrebari = listAll();
+        int index = intrebari.indexOf(intrebare);
+        return index;
+    }
 }
