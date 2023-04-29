@@ -4,69 +4,78 @@
   <meta charset="UTF-8">
   <title>Testing</title>
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"   />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="container-fluid text-center">
   <div class="m-2">
     <a class="h3 m-2" th:href="@{http://localhost:8080}">Home</a>
   </div>
-  <form id=form_chestionare th:action="@{/chestionare/save}" method="post" name="form_chestionare" th:object="${intrebare}" style="max-width: 2000px; margin: 0 auto;">
-    <div class="border border-secondary rounded p-3">
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Textul intrebarii</label>
-        <div class="col-sm-8">
-          <input type="text" th:field="*{intrebare}" class="form-control" required minlength="7">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Categoria Intrebarii</label>
-        <div class="col-sm-8">
-          <input type="text" th:field="*{categoria}" class="form-control" required minlength="7">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Textul Variantei 1</label>
-        <div class="col-sm-8">
-          <input type="text" th:field="*{optiuneaa}" class="form-control" required minlength="8">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Textul Variantei 2</label>
-        <div class="col-sm-8">
-          <input type="text" th:field="*{optiuneab}" class="form-control" required minlength="8">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Textul Variantei 3</label>
-        <div class="col-sm-8">
-          <input type="text" th:field="*{optiuneac}" class="form-control" required minlength="8">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Adevarat sau Fals Varianta 1:</label>
-        <div class="col-sm-8">
-          <input type="checkbox" th:field="*{optiuneaabool}" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Adevarat sau Fals Varianta 2:</label>
-        <div class="col-sm-8">
-          <input type="checkbox" th:field="*{optiuneabbool}" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Adevarat sau Fals Varianta 3:</label>
-        <div class="col-sm-8">
-          <input type="checkbox" th:field="*{optiuneacbool}" />
-        </div>
-      </div>
-      <div class="text-center">
-        <button type="submit" class="btn-primary m-2">Save</button>
-        <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Cancel</button>
-      </div>
-    </div>
-
-  </form>
+  <div class="h5 m-2">
+    <span id="intrebarea">Textul Intrebarii este</span>
+    <div></div>
+<!--    <form id="chestionar">-->
+<!--      <label for="varianta1"><span id="optiuneaa" > Varianta 1 este</span></label>-->
+<!--      <input type="checkbox" id="varianta1" name="myBooleanInput1" value="true">-->
+<!--      <label for="varianta2"><span id="optiuneab" > Varianta 2 este</span></label>-->
+<!--      <input type="checkbox" id="varianta2" name="myBooleanInput2" value="true">-->
+<!--      <label for="varianta3"><span id="optiuneac" > Varianta 3 este</span></label>-->
+<!--      <input type="checkbox" id="varianta3" name="myBooleanInput3" value="true">-->
+<!--      <button type="submit" id="next" onclick="submitForm()">Urmatoarea Intrebare</button>-->
+<!--    </form>-->
+    <form id="myForm" method="post" th:action="@{/submitForm}">
+      <h4 th:text="${listIntrebari[index].intrebare}"></h4>
+      <input type="checkbox" name="myBooleanInput1" th:checked="${listIntrebari[index].optiuneaabool}"/>
+      <span th:text="${listIntrebari[index].optiuneaa}"></span>
+      <br/>
+      <input type="checkbox" name="myBooleanInput2" th:checked="${listIntrebari[index].optiuneabbool}"/>
+      <span th:text="${listIntrebari[index].optiuneab}"></span>
+      <br/>
+      <input type="checkbox" name="myBooleanInput3" th:checked="${listIntrebari[index].optiuneacbool}"/>
+      <span th:text="${listIntrebari[index].optiuneac}"></span>
+      <br/><br/>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
+</div>
+<script type="text/javascript">
+  function submitForm() {
+    // Get the form data
+    var formData = new FormData(document.getElementById("chestionar"));
+
+    // Send the data to the server using AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/submitForm");
+    xhr.send(formData);
+
+    // Handle the response from the server (if any)
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          // Success! Do something with the response (if any)
+        } else {
+          // Error! Handle the error (if any)
+        }
+      }
+    }
+    myFunction()
+  }
+  function myFunction(textArray) {
+    $.ajax({
+      url: "/getTexts", // replace with the URL of your controller method
+      type: "POST",
+      data: JSON.stringify(textArray),
+      contentType: "application/json",
+      success: function(data) {
+        // update each element with the corresponding text
+        document.getElementById("intrebarea").innerHTML = data[0];
+        document.getElementById("optiuneaa").innerText = data[1];
+        document.getElementById("optiuneab").innerText = data[2];
+        document.getElementById("optiuneac").innerText = data[3];
+      }
+    });
+    intrebariTerminate++;
+  }
+</script>
 </body>
 </html>
