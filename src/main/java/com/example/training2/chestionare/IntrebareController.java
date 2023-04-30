@@ -141,6 +141,9 @@ public class IntrebareController {
         }
         if ((intrebareSubmited.isOptiuneaabool()== intrebareOriginala.isOptiuneaabool()) && (intrebareSubmited.isOptiuneabbool()== intrebareOriginala.isOptiuneabbool()) && (intrebareSubmited.isOptiuneacbool()== intrebareOriginala.isOptiuneacbool()))
             scor++;
+        if ((index - scor)>4){
+            return "redirect:/rezultat";
+        }
         if (index >= 26) {
             return "redirect:/rezultat";
         }

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Testing</title>
+  <title>Simulator Examen</title>
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
@@ -40,6 +40,7 @@
     <a class="h3 m-2" th:href="@{http://localhost:8080}">Home</a>
   </div>
   <div class="h5 m-2">
+    <span id="time-left">Timpul ramas: <span></span></span>
     <span id="intrebarea">Scorul dumneavoastra de pana acuma este <span th:text="${scor}"></span></span>
     <div></div>
     <form id="myForm" method="post" th:action="@{/submitForm}">
@@ -100,6 +101,21 @@
     });
     intrebariTerminate++;
   }
+</script>
+<script type="text/javascript">
+  var endTime = Date.now() + (30 * 60 * 1000); // 30 minutes from now
+  localStorage.setItem("endTime", endTime);
+
+  var countdownTimer = setInterval(function() {
+    var currentTime = Date.now();
+    var remainingTime = Math.floor(((endTime - currentTime) / 1000) / 60);
+    document.getElementById("time-left").getElementsByTagName("span")[0].textContent = remainingTime + " minute";
+
+    if (remainingTime <= 0) {
+      clearInterval(countdownTimer);
+      window.location.href = "rezultat.html";
+    }
+  }, 1000);
 </script>
 </body>
 </html>
