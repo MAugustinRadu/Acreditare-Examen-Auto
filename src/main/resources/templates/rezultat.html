@@ -9,7 +9,7 @@
 <div class="container-fluid text-center">
   <h2>Scorul tau a fost</h2>
   <div class="m-2">
-    <span class="display-1" th:text="${scor}" th:class="${scor &lt; 21} ? 'text-danger' : 'text-success'"></span>
+    <h4 class="display-1" th:text="${scor}" th:class="${scor &lt; 21} ? 'text-danger' : 'text-success'"></h4>
   </div>
   <div th:if="${scor &lt; 21}" class="text-danger">
     <h3>Ai picat examenul</h3>
