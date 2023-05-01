@@ -1,15 +1,79 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add new chestionar</title>
+    <title>[[${pageTitle}]]</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"   />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+        h2 {
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        form {
+            background-color: #fff;
+            border: 1px solid #e6e6e6;
+            border-radius: 5px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"], input[type="checkbox"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input[type="checkbox"] {
+            width: auto;
+            margin-top: 7px;
+            margin-right: 10px;
+        }
+        .btn-primary, .btn-secondary {
+            border-radius: 4px;
+            padding: 8px 20px;
+            margin-top: 20px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+            color: #fff;
+        }
+        .btn-secondary {
+            background-color: #f0f0f0;
+            border-color: #f0f0f0;
+            color: #000;
+        }
+        .btn-secondary:hover {
+            background-color: #e6e6e6;
+            border-color: #e6e6e6;
+            color: #000;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
-    <div class="text-center"><h2> Add new chestionar</h2></div>
+    <div class="text-center"><h2>[[${pageTitle}]]</h2></div>
 
     <form id=form_chestionare th:action="@{/chestionare/save}" method="post" name="form_chestionare" th:object="${intrebare}" style="max-width: 2000px; margin: 0 auto;">
+        <input type="hidden" th:field="*{id}">
     <div class="border border-secondary rounded p-3">
         <div class="form-group row">
             <label class="col-sm-4 col-form-label">Textul intrebarii</label>

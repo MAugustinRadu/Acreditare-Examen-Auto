@@ -29,6 +29,7 @@ public class IntrebareController {
     @GetMapping("/chestionare/new")
     public String showNewForm(Model model) {
         model.addAttribute("intrebare",new Intrebare());
+        model.addAttribute("pageTitle", "Adaugati noua Intrebare");
         return "intrebari_form";
     }
 
@@ -45,11 +46,13 @@ public class IntrebareController {
         Random random = new Random(16548923);
         List<Intrebare> listIntrebariSimulator = new ArrayList<>();
         for (int i = 0; i < 26; i++) {
-            Boolean duplicat = false;
+            boolean duplicat = false;
             int generatorRandom = random.nextInt(listIntrebari.size());
-            for (int j = 0; j < listIntrebariSimulator.size(); j++) {
-                if(listIntrebari.get(generatorRandom).equals(listIntrebariSimulator.get(j)))
-                    duplicat=true;
+            for (Intrebare intrebare : listIntrebariSimulator) {
+                if (listIntrebari.get(generatorRandom).equals(intrebare)) {
+                    duplicat = true;
+                    break;
+                }
             }
             if (!duplicat) {
                 listIntrebariSimulator.add(listIntrebari.get(i));
@@ -61,7 +64,7 @@ public class IntrebareController {
     @GetMapping("/simulatorExamen")
     public String simulatorExamen(Model model) {
         List<Intrebare> listIntrebari = service.listAll();
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<>();
         Random randomGenerator = new Random();
         while (numbers.size() <= 26) {
 
@@ -103,13 +106,12 @@ public class IntrebareController {
     public String submitForm(@RequestParam(name = "myBooleanInput1", required = false) Boolean varianta1,
                            @RequestParam(name = "myBooleanInput2", required = false) Boolean varianta2,
                            @RequestParam(name = "myBooleanInput3", required = false) Boolean varianta3 ) {
-        // Your code here to process the three boolean inputs
         Intrebare intrebareSubmited = listaIntrebariExamen.get(index);
         List<Intrebare> intrebariTotale = service.listAll();
         Intrebare intrebareOriginala = new Intrebare();
-        for (int i = 0; i < intrebariTotale.size(); i++) {
-            if (intrebariTotale.get(i).getId().equals(intrebareSubmited.getId())) {
-                intrebareOriginala =intrebariTotale.get(i);
+        for (Intrebare intrebare : intrebariTotale) {
+            if (intrebare.getId().equals(intrebareSubmited.getId())) {
+                intrebareOriginala = intrebare;
             }
         }
         if(varianta1 == null)
@@ -118,27 +120,9 @@ public class IntrebareController {
             varianta2 = false;
         if(varianta3 == null)
             varianta3 = false;
-        if (varianta1) {
-            // checkbox was checked
-            intrebareSubmited.setOptiuneaabool(true);
-        } else {
-            // checkbox was not checked
-            intrebareSubmited.setOptiuneaabool(false);
-        }
-        if (varianta2) {
-            // checkbox was checked
-            intrebareSubmited.setOptiuneabbool(true);
-        } else {
-            // checkbox was not checked
-            intrebareSubmited.setOptiuneabbool(false);
-        }
-        if (varianta3) {
-            // checkbox was checked
-            intrebareSubmited.setOptiuneacbool(true);
-        } else {
-            // checkbox was not checked
-            intrebareSubmited.setOptiuneacbool(false);
-        }
+        intrebareSubmited.setOptiuneaabool(varianta1);
+        intrebareSubmited.setOptiuneabbool(varianta2);
+        intrebareSubmited.setOptiuneacbool(varianta3);
         if ((intrebareSubmited.isOptiuneaabool()== intrebareOriginala.isOptiuneaabool()) && (intrebareSubmited.isOptiuneabbool()== intrebareOriginala.isOptiuneabbool()) && (intrebareSubmited.isOptiuneacbool()== intrebareOriginala.isOptiuneacbool()))
             scor++;
         if ((index - scor)>4){
@@ -158,4 +142,27 @@ public class IntrebareController {
         return "rezultat";
 
     }
+
+    @GetMapping("/chestionare/edit/{id}")
+    public String showEditForm(@PathVariable("id") Integer id,Model model){
+        try {
+            Intrebare intrebare = service.get(id);
+            model.addAttribute("intrebare",intrebare);
+            model.addAttribute("pageTitle","Editati Intrebare (ID: " + id + ")");
+
+            return "intrebari_form";
+        } catch (IntrebareNotFoundException e) {
+            return "redirect:/chestionare";
+
     }
+    }
+
+    @GetMapping("/chestionare/delete/{id}")
+    public String deleteIntrebare(@PathVariable("id") Integer id, Model model) {
+        try {
+            service.delete(id);
+        } catch (IntrebareNotFoundException e) {}
+            return "redirect:/chestionare";
+        }
+    }
+

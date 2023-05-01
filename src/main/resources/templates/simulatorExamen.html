@@ -65,21 +65,14 @@
 </div>
 <script type="text/javascript">
   function submitForm() {
-    // Get the form data
     var formData = new FormData(document.getElementById("chestionar"));
-
-    // Send the data to the server using AJAX
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/submitForm");
     xhr.send(formData);
-
-    // Handle the response from the server (if any)
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status === 200) {
-          // Success! Do something with the response (if any)
         } else {
-          // Error! Handle the error (if any)
         }
       }
     }
@@ -87,12 +80,11 @@
   }
   function myFunction(textArray) {
     $.ajax({
-      url: "/getTexts", // replace with the URL of your controller method
+      url: "/getTexts",
       type: "POST",
       data: JSON.stringify(textArray),
       contentType: "application/json",
       success: function(data) {
-        // update each element with the corresponding text
         document.getElementById("intrebarea").innerHTML = data[0];
         document.getElementById("optiuneaa").innerText = data[1];
         document.getElementById("optiuneab").innerText = data[2];
@@ -103,7 +95,7 @@
   }
 </script>
 <script type="text/javascript">
-  var endTime = Date.now() + (30 * 60 * 1000); // 30 minutes from now
+  var endTime = Date.now() + (30 * 60 * 1000);
   localStorage.setItem("endTime", endTime);
 
   var countdownTimer = setInterval(function() {

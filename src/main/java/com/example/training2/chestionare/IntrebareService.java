@@ -24,4 +24,20 @@ public class IntrebareService {
         int index = intrebari.indexOf(intrebare);
         return index;
     }
+
+    public Intrebare get(Integer id) throws IntrebareNotFoundException {
+        Optional<Intrebare> result = repo.findById(id);
+        if(result.isPresent()) {
+            return result.get();
+        }
+        throw new IntrebareNotFoundException("Nu s-a putut gasi intrebarea cu ID:" + id);
+    }
+
+    public void delete(Integer id) throws IntrebareNotFoundException {
+        Long count = repo.countById(id);
+        if (count == null || count == 0) {
+            throw new IntrebareNotFoundException("Nu s-a putut gasi intrebarea cu ID:" + id);
+        }
+        repo.deleteById(id);
+    }
 }
