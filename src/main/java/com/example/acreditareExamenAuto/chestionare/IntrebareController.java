@@ -66,8 +66,8 @@ public class IntrebareController {
         List<Intrebare> listIntrebari = service.listAll();
         ArrayList<Integer> numbers = new ArrayList<>();
         Random randomGenerator = new Random();
+        int intrebariImagini = 0;
         while (numbers.size() <= 26) {
-
             int random = randomGenerator.nextInt(listIntrebari.size());
             if (!numbers.contains(random)) {
                 numbers.add(random);
@@ -76,10 +76,22 @@ public class IntrebareController {
         for (int i = 0; i < 26; i++) {
             if (listaIntrebariExamen.size() > 26) {
                 listaIntrebariExamen.remove(i);
-                listaIntrebariExamen.add(listIntrebari.get(numbers.get(i)));
+                if ((i == 3) || (i == 8) || (i == 14)) {
+                    int random = randomGenerator.nextInt(708,740);
+                    listaIntrebariExamen.add(listIntrebari.get(random));
+                }
+                else {
+                    listaIntrebariExamen.add(listIntrebari.get(numbers.get(i)));
+                }
             }
             else {
-                listaIntrebariExamen.add(listIntrebari.get(numbers.get(i)));
+                if ((i == 3) || (i == 8) || (i == 14)) {
+                    int random = randomGenerator.nextInt(708,740);
+                    listaIntrebariExamen.add(listIntrebari.get(random));
+                }
+                else {
+                    listaIntrebariExamen.add(listIntrebari.get(numbers.get(i)));
+                }
             }
         }
         listaIntrebariExamenOriginale = listaIntrebariExamen;

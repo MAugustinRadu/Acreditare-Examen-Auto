@@ -43,6 +43,7 @@
     <span id="time-left">Timpul ramas: <span></span></span>
     <span id="intrebarea">Scorul dumneavoastra de pana acuma este <span th:text="${scor}"></span></span>
     <div></div>
+    <img id="myImage" th:src="@{'/Images/' + ${listIntrebari[index].id} + '.png'}" alt=""/>
     <form id="myForm" method="post" th:action="@{/submitForm}">
       <h4 th:text="${listIntrebari[index].intrebare}"></h4>
       <input type="checkbox" name="myBooleanInput1" />
