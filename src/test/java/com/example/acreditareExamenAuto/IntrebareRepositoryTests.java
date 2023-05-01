@@ -1,7 +1,7 @@
-package com.example.training2;
+package com.example.acreditareExamenAuto;
 
-import com.example.training2.chestionare.IntrebareRepository;
-import com.example.training2.chestionare.Intrebare;
+import com.example.acreditareExamenAuto.chestionare.IntrebareRepository;
+import com.example.acreditareExamenAuto.chestionare.Intrebare;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

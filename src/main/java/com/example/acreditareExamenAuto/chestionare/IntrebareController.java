@@ -1,4 +1,4 @@
-package com.example.training2.chestionare;
+package com.example.acreditareExamenAuto.chestionare;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

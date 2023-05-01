@@ -1,4 +1,4 @@
-package com.example.training2.chestionare;
+package com.example.acreditareExamenAuto.chestionare;
 
 
 import jakarta.persistence.*;
